@@ -1,19 +1,18 @@
 /**
  * Angular 2 decorators and services
  */
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { environment } from 'environments/environment';
 import { AppState } from './app.service';
+
+export const ROOT_SELECTOR = 'app';
 
 /**
  * App Component
  * Top Level Component
  */
 @Component({
-  selector: 'app',
+  selector: ROOT_SELECTOR,
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
     './app.component.css'
@@ -40,6 +39,10 @@ import { AppState } from './app.service';
         routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
         About
       </a>
+      <a *ngIf="showDevModule" [routerLink]=" ['./dev-module'] "
+         routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+        DevModule
+      </a>
     </nav>
 
     <main>
@@ -49,19 +52,21 @@ import { AppState } from './app.service';
     <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
 
     <footer>
-      <span>WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
+      <span>Angular Starter by <a [href]="twitter">@gdi2290</a></span>
       <div>
         <a [href]="url">
-          <img [src]="angularclassLogo" width="25%">
+          <img [src]="tipe" width="25%">
         </a>
       </div>
     </footer>
   `
 })
 export class AppComponent implements OnInit {
-  public angularclassLogo = 'assets/img/angularclass-avatar.png';
-  public name = 'Angular 2 Webpack Starter';
-  public url = 'https://twitter.com/AngularClass';
+  public name = 'Angular Starter';
+  public tipe = 'assets/img/tipe.png';
+  public twitter = 'https://twitter.com/gdi2290';
+  public url = 'https://tipe.io';
+  public showDevModule: boolean = environment.showDevModule;
 
   constructor(
     public appState: AppState
@@ -74,7 +79,7 @@ export class AppComponent implements OnInit {
 }
 
 /**
- * Please review the https://github.com/AngularClass/angular2-examples/ repo for
+ * Please review the https://github.com/AngularClass/angular-examples/ repo for
  * more angular app examples that you may copy/paste
  * (The examples may not be updated as quickly. Please open an issue on github for us to update it)
  * For help or questions please contact us at @AngularClass on twitter
